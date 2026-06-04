@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glowry House | Your Daily Dose of Authentic Glow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <style>
+        /* --- CONFIGURASI & WARNA --- */
+        :root {
+            --soft-pink: #FFD1DC;
+            --light-pink: #FFF0F2;
+            --accent-pink: #FF6B8B;
+            --bg-cream: #FDFBF7;
+            --dark-sage: #2F3E46;
+            --white: #ffffff;
+            --text-dark: #333333;
+            --text-muted: #666666;
+            --shadow: 0 10px 30px rgba(255, 107, 139, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* --- NAVBAR --- */
+        header {
+            background-color: rgba(255, 240, 242, 0.85);
+            backdrop-filter: blur(12px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 171, 187, 0.2);
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        /* MEMPERBESAR LOGO */
+        .logo-img {
+            height: 95px;
+            /* Diperbesar dari 55px agar tulisan terbaca jelas */
+            display: block;
+            object-fit: contain;
+            transition: height 0.3s ease;
+        }
+
+        /* NAV MENU RIGHT */
+        .nav-menu-right {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            /* Jarak antara Blog dan Button Shop All */
+        }
+
+        /* LINK BLOGSPOT */
+        .link-blog {
+            color: var(--dark-sage);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .link-blog:hover {
+            color: var(--accent-pink);
+        }
+
+        /* Efek garis bawah halus saat hover di tulisan Blog */
+        .link-blog::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--accent-pink);
+            transition: width 0.3s ease;
+        }
+
+        .link-blog:hover::after {
+            width: 100%;
+        }
+
+        .btn-shop {
+            display: inline-block;
+            padding: 12px 28px;
+            background-color: var(--dark-sage);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-shop:hover {
+            background-color: var(--accent-pink);
+            transform: translateY(-2px);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            padding: 220px 20px 120px;
+            /* Ditambah padding atas agar tidak tertutup logo yang membesar */
+            text-align: center;
+            background: linear-gradient(180deg, var(--light-pink) 0%, var(--bg-cream) 100%);
+            position: relative;
+        }
+
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            color: var(--dark-sage);
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin: 0 auto 35px;
+            line-height: 1.6;
+        }
+
+        .cta-main {
+            display: inline-block;
+            padding: 15px 35px;
+            background-color: var(--accent-pink);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            box-shadow: 0 6px 20px rgba(255, 107, 139, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .cta-main:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 107, 139, 0.6);
+        }
+
+        /* --- MARKETPLACE GRID --- */
+        .marketplace {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.2rem;
+            color: var(--dark-sage);
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-pink);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 35px;
+        }
+
+        /* --- CARD PRODUK --- */
+        .card {
+            background: var(--white);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            border: 1px solid rgba(255, 209, 220, 0.3);
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(255, 107, 139, 0.2);
+        }
+
+        .card-img-holder {
+            width: 100%;
+            height: 320px;
+            overflow: hidden;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-img-holder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover .card-img-holder img {
+            transform: scale(1.05);
+        }
+
+        .card-body {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: linear-gradient(180deg, var(--white) 70%, var(--light-pink) 100%);
+        }
+
+        .brand-badge {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent-pink);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .product-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.15rem;
+            color: var(--dark-sage);
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .price-tag {
+            font-size: 1.25rem;
+            color: var(--dark-sage);
+            font-weight: 700;
+            margin-top: auto;
+            margin-bottom: 15px;
+        }
+
+        .view-details-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .view-details-text i {
+            margin-left: 5px;
+            color: var(--accent-pink);
+        }
+
+        /* --- MODAL POPUP SYSTEM --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(47, 62, 70, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            width: 100%;
+            max-width: 650px;
+            max-height: 85vh;
+            border-radius: 28px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            padding: 35px;
+            position: relative;
+            overflow-y: auto;
+            transform: translateY(30px);
+            transition: transform 0.3s ease;
+            border: 2px solid var(--soft-pink);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 1.8rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .close-modal:hover {
+            color: var(--accent-pink);
+        }
+
+        .modal-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+            color: var(--dark-sage);
+            font-weight: 700;
+            margin-bottom: 15px;
+            padding-right: 20px;
+            line-height: 1.4;
+        }
+
+        .modal-meta {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed var(--soft-pink);
+        }
+
+        .rating-box {
+            color: #FFB800;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .rating-box span {
+            color: var(--text-muted);
+            font-weight: 400;
+            font-size: 0.85rem;
+        }
+
+        .modal-price {
+            font-size: 1.6rem;
+            color: var(--accent-pink);
+            font-weight: 700;
+        }
+
+        .options-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            color: var(--dark-sage);
+        }
+
+        .options-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 30px;
+        }
+
+        .option-badge {
+            background-color: var(--light-pink);
+            border: 1px solid var(--soft-pink);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--dark-sage);
+        }
+
+        .btn-buy-now {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 16px;
+            background-color: #EE4D2D;
+            /* Shopee Orange */
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(238, 77, 45, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-buy-now:hover {
+            background-color: #d73c1d;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(238, 77, 45, 0.5);
+        }
+
+        /* --- TRUST SIGNALS --- */
+        .trust-signals {
+            background-color: var(--light-pink);
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .trust-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 30px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--dark-sage);
+            color: var(--white);
+            padding: 60px 20px 40px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-info h3 {
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+        }
+
+        .footer-info p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            opacity: 0.8;
+            margin-bottom: 8px;
+        }
+
+        .footer-links h4 {
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        .social-icons a:hover {
+            background-color: var(--accent-pink);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.85rem;
+            opacity: 0.7;
+            line-height: 1.5;
+        }
+
+        /* --- WA FLOATING CHAT --- */
+        .wa-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25D366;
+            color: white;
+            width: 55px;
+            height: 55px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1500;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .wa-float:hover {
+            transform: scale(1.1);
+        }
+
+        .wa-float::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #25D366;
+            border-radius: 50px;
+            z-index: -1;
+            opacity: 0.4;
+            animation: pulse-ring 2s infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(1);
+                opacity: 0.4;
+            }
+
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* ======================================================= */
+        /* --- MEDIA QUERIES (SISTEM RESPONSIVE SEMUA PERANGKAT) --- */
+        /* ======================================================= */
+
+        /* Tablet & HP Besar */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 10px 15px;
+            }
+
+            .logo-img {
+                height: 70px;
+                /* Ukuran disesuaikan di layar tablet */
+            }
+
+            .nav-menu-right {
+                gap: 15px;
+            }
+
+            .link-blog {
+                font-size: 0.9rem;
+            }
+
+            .btn-shop {
+                padding: 8px 18px;
+                font-size: 0.85rem;
+            }
+
+            .hero {
+                padding: 160px 20px 80px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .modal-content {
+                padding: 25px 20px;
+            }
+
+            .wa-float {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+            }
+        }
+
+        /* HP Kecil (Sangat Responsive) */
+        @media (max-width: 480px) {
+            .navbar {
+                flex-direction: column;
+                /* Membuat Logo & Tombol menumpuk vertikal jika layar terlalu sempit */
+                gap: 10px;
+                padding: 12px 10px;
+            }
+
+            .logo-img {
+                height: 65px;
+            }
+
+            .nav-menu-right {
+                width: 100%;
+                justify-content: center;
+                /* Menu di HP rata tengah agar seimbang */
+                gap: 20px;
+            }
+
+            .hero {
+                padding: 190px 15px 60px;
+                /* Padding disesuaikan karena navbar menumpuk */
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="navbar">
+            <a href="#"><img src="l1.png" alt="Glowry House" class="logo-img" style="width: 150px; height: auto;"></a>
+
+            <div class="nav-menu-right">
+                <a href="blog.html" target="_blank" class="link-blog">Blog</a>
+                <a href="#catalog" class="btn-shop">Shop All</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Your Daily Dose of Authentic Glow</h1>
+        <p>Temukan produk kecantikan terbaik pilihan yang diformulasikan untuk merawat kulit sehat, tampak bersinar
+            alami, dan terlindungi setiap hari.</p>
+        <a href="#catalog" class="cta-main">Mulai Belanja</a>
+    </section>
+
+    <section class="marketplace" id="catalog">
+        <h2 class="section-title">Our Collection</h2>
+        <div class="grid-container">
+
+            <div class="card" onclick="openProductModal('slavina')">
+                <div class="card-img-holder">
+                    <img src="p5.png" alt="Slavina Body Scrub">
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div class="brand-badge">Slavina</div>
+                        <h3 class="product-title">[All Variant] SLAVINA Body Scrub by Nagita Slavina – Lulur Badan
+                            Pemutih Mencerahkan</h3>
+                    </div>
+                    <div>
+                        <div class="price-tag">Rp97.000</div>
+                        <div class="view-details-text">Lihat Detail & Varian <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" onclick="openProductModal('npureToner')">
+                <div class="card-img-holder">
+                    <img src="p4.png" alt="NPURE Cica Hydrating Acne Toner">
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div class="brand-badge">Npure</div>
+                        <h3 class="product-title">[FREE KAPAS] NPURE Cica Hydrating Acne Toner 150 ml / Hydrating Toner
+                            / Acne Toner</h3>
+                    </div>
+                    <div>
+                        <div class="price-tag">Rp104.000</div>
+                        <div class="view-details-text">Lihat Detail & Varian <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" onclick="openProductModal('npureSunscreen')">
+                <div class="card-img-holder">
+                    <img src="p3.png" alt="NPURE Sunscreen Cica Beat The Sun Glow">
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div class="brand-badge">Npure</div>
+                        <h3 class="product-title">NPURE Sunscreen Cica (Centella) Beat The Sun Glow SPF 50+ PA++++ 35 ml
+                        </h3>
+                    </div>
+                    <div>
+                        <div class="price-tag">Rp79.000</div>
+                        <div class="view-details-text">Lihat Detail & Varian <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" onclick="openProductModal('somethinc')">
+                <div class="card-img-holder">
+                    <img src="p2.png" alt="SOMETHINC Ceraplump Tinted Lip Balm">
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div class="brand-badge">Somethinc</div>
+                        <h3 class="product-title">SOMETHINC Ceraplump Tinted Lip Balm SPF25 PA++++ - Warna Untuk
+                            Melembabkan</h3>
+                    </div>
+                    <div>
+                        <div class="price-tag">Rp48.000 - Rp99.000</div>
+                        <div class="view-details-text">Lihat Detail & Varian <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" onclick="openProductModal('hanasui')">
+                <div class="card-img-holder">
+                    <img src="p1.png" alt="Hanasui Perfect Cheek Blush">
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div class="brand-badge">Hanasui</div>
+                        <h3 class="product-title">Hanasui Perfect Cheek Blush & Go Powder - Blush On Powder Natural
+                            Radiant Finish</h3>
+                    </div>
+                    <div>
+                        <div class="price-tag">Rp54.418 - Rp159.412</div>
+                        <div class="view-details-text">Lihat Detail & Varian <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="modal-overlay" id="productModal" onclick="closeProductModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="close-modal" onclick="hideModal()">&times;</span>
+            <div id="modalDataArea">
+            </div>
+        </div>
+    </div>
+
+    <section class="trust-signals">
+        <div class="trust-container">
+            <div><i class="fa-solid fa-shield-heart"
+                    style="color:var(--accent-pink); font-size:2rem; margin-bottom:10px;"></i>
+                <p style="font-weight:600;">100% Original</p>
+            </div>
+            <div><i class="fa-solid fa-bolt" style="color:var(--accent-pink); font-size:2rem; margin-bottom:10px;"></i>
+                <p style="font-weight:600;">Fast Shipping</p>
+            </div>
+            <div><i class="fa-solid fa-face-smile-wink"
+                    style="color:var(--accent-pink); font-size:2rem; margin-bottom:10px;"></i>
+                <p style="font-weight:600;">BPOM Approved</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-info">
+                <h3>Glowry House</h3>
+                <p>SIB NF Academy</p>
+                <p>Kelompok 4 - Digital Marketing 2</p>
+            </div>
+            <div class="footer-info">
+                <h4>Hubungi Kami</h4>
+                <p><i class="fa-solid fa-envelope" style="margin-right: 8px;"></i> glowry.house@gmail.com</p>
+                <p><i class="fa-solid fa-phone" style="margin-right: 8px;"></i> +62 896-3831-9027</p>
+            </div>
+            <div class="footer-links">
+                <h4>Media Sosial & Toko</h4>
+                <div class="social-icons">
+                    <a href="https://shopee.co.id/glowryhouse" target="_blank" title="Shopee"><i
+                            class="fa-solid fa-bag-shopping"></i></a>
+                    <a href="https://www.instagram.com/glowry.house" target="_blank" title="Instagram"><i
+                            class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@glowry.housee?_r=1&_t=ZS-96lHrLsg0Bw" target="_blank"
+                        title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://www.youtube.com/@GlowryHouse" target="_blank" title="YouTube"><i
+                            class="fa-brands fa-youtube"></i></a>
+                    <a href="https://www.facebook.com/share/1DKmdsyrnq/" target="_blank" title="Facebook"><i
+                            class="fa-brands fa-facebook-f"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Glowry House. Seluruh Hak Cipta Dilindungi.</p>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/6289638319027?text=Halo%20Glowry%20House,%20saya%20ingin%20konsultasi%20mengenai%20produk%20kecantikan."
+        class="wa-float" target="_blank" title="Hubungi kami di WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <script>
+        const productsData = {
+            slavina: {
+                title: "[All Variant] SLAVINA Body Scrub by Nagita Slavina – Lulur Badan Pemutih Mencerahkan 100% Organic Rice Scrub Whitening Exfoliating",
+                rating: "4.9 <span>(7,1RB penilaian)</span>",
+                price: "Rp97.000",
+                optionTitle: "Pilihan Aroma",
+                options: ["Spill The Night - FS", "Spill The Night", "Red Opium", "Endless Blossom", "First Kiss", "Shooting Stars", "Ocean Dream", "Crush On You", "Love Journey"],
+                link: "https://shopee.co.id/product/1017167292/27876663078"
+            },
+            npureToner: {
+                title: "[FREE KAPAS] NPURE Cica Hydrating Acne Toner 150 ml / Hydrating Toner / Acne Toner / Toner Kulit Jerawat Berminyak",
+                rating: "4.9 <span>(332,3RB penilaian)</span>",
+                price: "Rp104.000",
+                optionTitle: "Varian Ukuran / Tipe",
+                options: ["TONER CICA", "Toner Centella 150ml", "Toner 150ml + Patch"],
+                link: "https://shopee.co.id/product/115276607/2217578881"
+            },
+            npureSunscreen: {
+                title: "NPURE Sunscreen Cica (Centella) Beat The Sun Glow SPF 50+ PA++++ 35 ml / Hydrating / Jerawat / Glow Finish / Tekstur Ringan",
+                rating: "4.9 <span>(102,1RB penilaian)</span>",
+                price: "Rp79.000",
+                optionTitle: "Spesifikasi",
+                options: ["35 ml - All Skin Types"],
+                link: "https://shopee.co.id/product/115276607/8970485352"
+            },
+            somethinc: {
+                title: "SOMETHINC Ceraplump Tinted Lip Balm SPF25 PA++++ - Warna Untuk Melembabkan & Memperkuat Lip Barrier | Glowy Finish",
+                rating: "4.9 <span>(82,6RB penilaian)</span>",
+                price: "Rp48.000 - Rp99.000",
+                optionTitle: "Pilihan Shade",
+                options: ["Sleek (Batman)", "Flirty (Batman)", "01 Rabbit", "02 Sorbet", "03 Pecan", "04 Lace", "06 Valentine", "07 Ballet", "08 Ribbon", "09 Sakura", "10 Walnut", "11 Raisin", "12 Coquette", "13 Flirty", "15 Petal", "16 Cherry", "FS - 07 Ballet"],
+                link: "https://shopee.co.id/product/195455930/24334141670"
+            },
+            hanasui: {
+                title: "Hanasui Perfect Cheek Blush & Go Powder - Blush On Powder Natural Radiant Finish Melembabkan Cerah Antioksidan",
+                rating: "4.9 <span>(170,7RB penilaian)</span>",
+                price: "Rp54.418 - Rp159.412",
+                optionTitle: "Pilihan Shade / Pack",
+                options: ["01 - Pink", "02 - Peach", "03 - Winter Pink", "04 -Muted Mauve", "Sunikissed Matte", "Sugar Blush", "Honey Glow", "Pink Diary", "Triplepack Peach", "Triplepack Pink", "Twinpack Pink", "Twinpack Peach", "Twinpack Winter Pink", "Twinpack Muted Mauve"],
+                link: "https://shopee.co.id/product/129681299/14813718634"
+            }
+        };
+
+        function openProductModal(key) {
+            const data = productsData[key];
+            if (!data) return;
+
+            let optionsHTML = '';
+            data.options.forEach(opt => {
+                optionsHTML += `<span class="option-badge">${opt}</span>`;
+            });
+
+            const htmlContent = `
+                <h3 class="modal-title">${data.title}</h3>
+                <div class="modal-meta">
+                    <div class="rating-box"><i class="fa-solid fa-star"></i> ${data.rating}</div>
+                    <div class="modal-price">${data.price}</div>
+                </div>
+                <div class="options-title">${data.optionTitle}:</div>
+                <div class="options-grid">
+                    ${optionsHTML}
+                </div>
+                <a href="${data.link}" target="_blank" class="btn-buy-now">
+                    <i class="fa-solid fa-cart-shopping"></i> Beli Sekarang di Shopee
+                </a>
+            `;
+
+            document.getElementById('modalDataArea').innerHTML = htmlContent;
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        function hideModal() {
+            document.getElementById('productModal').classList.remove('active');
+        }
+
+        function closeProductModal(event) {
+            if (event.target.id === 'productModal') {
+                hideModal();
+            }
+        }
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                hideModal();
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glowry House - Beauty Catalog Landing Page</title>
+    <!-- Google Fonts & FontAwesome -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        /* --- DESIGN SYSTEM (ELEGANT PINK & SAGE) --- */
+        :root {
+            --soft-pink: #FFD1DC;
+            --light-pink: #FFF0F2;
+            --accent-pink: #FF6B8B;
+            --bg-cream: #FDFBF7;
+            --dark-sage: #2F3E46;
+            --white: #ffffff;
+            --text-dark: #333333;
+            --text-muted: #777777;
+            --card-shadow: 0 12px 40px rgba(255, 107, 139, 0.06);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* Base Reset */
+        .glowry-landing {
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .glowry-landing * {
+            box-sizing: border-box;
+        }
+
+        /* --- STICKY NAVIGATION HEADER --- */
+        .gh-navbar {
+            background-color: rgba(255, 240, 242, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 171, 187, 0.25);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999;
+            padding: 12px 20px;
+        }
+
+        .gh-nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .gh-nav-brand {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark-sage);
+            text-decoration: none;
+        }
+
+        .gh-nav-brand span {
+            color: var(--accent-pink);
+        }
+
+        .gh-nav-btn {
+            background-color: var(--dark-sage);
+            color: var(--white);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            border: 1px solid var(--dark-sage);
+        }
+
+        .gh-nav-btn:hover {
+            background-color: transparent;
+            color: var(--dark-sage);
+        }
+
+        /* --- HERO BANNER --- */
+        .gh-hero {
+            background: linear-gradient(180deg, var(--light-pink) 0%, var(--bg-cream) 100%);
+            text-align: center;
+            padding: 120px 20px 60px;
+            /* Diperlebar top-padding agar tidak tertutup navbar fixed */
+            border-bottom: 1px solid rgba(255, 171, 187, 0.15);
+        }
+
+        .gh-hero-badge {
+            background-color: var(--white);
+            color: var(--accent-pink);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(255, 107, 139, 0.1);
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .gh-hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            color: var(--dark-sage);
+            margin: 0 0 15px 0;
+            font-weight: 700;
+        }
+
+        .gh-hero h1 span {
+            color: var(--accent-pink);
+        }
+
+        .gh-hero p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* --- MAIN CATALOG GRID --- */
+        .gh-container {
+            max-width: 1200px;
+            margin: 40px auto 80px;
+            padding: 0 20px;
+        }
+
+        .gh-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        /* --- POST CARD DESIGN --- */
+        .gh-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(255, 209, 220, 0.25);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .gh-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background-color: var(--soft-pink);
+            transition: var(--transition);
+        }
+
+        .gh-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(255, 107, 139, 0.1);
+            border-color: var(--soft-pink);
+        }
+
+        .gh-card:hover::before {
+            background-color: var(--accent-pink);
+            width: 6px;
+        }
+
+        /* Tags Kategori */
+        .gh-card-tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            align-self: flex-start;
+        }
+
+        /* Pewarnaan Tag Otomatis */
+        .tag-bodycare {
+            background-color: #E8F5E9;
+            color: #2E7D32;
+        }
+
+        .tag-toner {
+            background-color: #E3F2FD;
+            color: #1565C0;
+        }
+
+        .tag-sunscreen {
+            background-color: #FFF3E0;
+            color: #EF6C00;
+        }
+
+        .tag-lipcare {
+            background-color: #FCE4EC;
+            color: #C2185B;
+        }
+
+        .tag-makeup {
+            background-color: #F3E5F5;
+            color: #7B1FA2;
+        }
+
+        .gh-card-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            line-height: 1.4;
+            margin: 0 0 12px 0;
+        }
+
+        .gh-card-title a {
+            color: var(--dark-sage);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .gh-card-title a:hover {
+            color: var(--accent-pink);
+        }
+
+        .gh-card-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .gh-card-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--accent-pink);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .gh-card:hover .gh-card-btn i {
+            transform: translateX(4px);
+        }
+
+        /* --- FOOTER & SOSMED --- */
+        .gh-footer {
+            background-color: var(--dark-sage);
+            color: #E2E8F0;
+            text-align: center;
+            padding: 50px 20px 40px;
+            border-top: 4px solid var(--soft-pink);
+        }
+
+        .gh-footer-sosmed {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .gh-sosmed-icon {
+            color: var(--white);
+            background-color: rgba(255, 255, 255, 0.08);
+            width: 42px;
+            height: 42px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .gh-sosmed-icon:hover {
+            background-color: var(--accent-pink);
+            transform: translateY(-3px);
+            color: var(--white);
+            box-shadow: 0 5px 15px rgba(255, 107, 139, 0.4);
+        }
+
+        /* Khusus Icon Shopee Warna Aslinya Oranye saat Hover */
+        .gh-sosmed-icon.shopee-color:hover {
+            background-color: #EE4D2D;
+            box-shadow: 0 5px 15px rgba(238, 77, 45, 0.4);
+        }
+
+        .gh-footer p {
+            margin: 4px 0;
+            font-size: 0.9rem;
+            opacity: 0.85;
+        }
+
+        /* --- RESPONSIVE LAYOUT (MOBILE FRIENDLY) --- */
+        @media (max-width: 768px) {
+            .gh-nav-container {
+                padding: 2px 5px;
+            }
+
+            .gh-nav-brand {
+                font-size: 1.15rem;
+            }
+
+            .gh-nav-btn {
+                font-size: 0.75rem;
+                padding: 6px 12px;
+            }
+
+            .gh-hero {
+                padding: 110px 15px 40px;
+            }
+
+            .gh-hero h1 {
+                font-size: 1.85rem;
+            }
+
+            .gh-hero p {
+                font-size: 0.9rem;
+            }
+
+            .gh-grid {
+                grid-template-columns: 1fr;
+                /* Di HP otomatis menjadi 1 kolom vertical lurus */
+                gap: 20px;
+            }
+
+            .gh-container {
+                margin: 25px auto 50px;
+            }
+
+            .gh-card {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="glowry-landing">
+
+        <!-- TOP FIXED NAVIGATION NAVBAR -->
+        <nav class="gh-navbar">
+            <div class="gh-nav-container">
+                <a class="gh-nav-brand" href="https://fathainspirasi.blogspot.com/">Glowry <span>House</span></a>
+                <!-- Ganti tanda '#' di bawah ini dengan link Toko/Website Utama jualan kamu -->
+                <a class="gh-nav-btn" href="index.html"><i class="fa-solid fa-house"></i> Ke Halaman Utama</a>
+            </div>
+        </nav>
+
+        <!-- HERO SECTION -->
+        <header class="gh-hero">
+            <span class="gh-hero-badge">Official Content Hub</span>
+            <h1>Glowry <span>House</span></h1>
+            <p>Temukan kumpulan edukasi lengkap, panduan praktis perawatan kulit, serta review mendalam untuk seluruh
+                koleksi kosmetik dan skincare terbaik kami.</p>
+        </header>
+
+        <!-- CONTAINER DAFTAR ARTIKEL -->
+        <div class="gh-container">
+            <div class="gh-grid">
+
+                <!-- ARTIKEL 1 -->
+                <div class="gh-card">
+                    <div>
+                        <span class="gh-card-tag tag-bodycare">Body Care</span>
+                        <h2 class="gh-card-title">
+                            <a href="https://fathainspirasi.blogspot.com/2026/06/rahasia-kulit-cerah-instan-tips.html"
+                                target="_blank">Rahasia Kulit Cerah Instan: Tips Eksfoliasi Tubuh yang Benar Tanpa
+                                Iritasi</a>
+                        </h2>
+                        <p class="gh-card-desc">Ingin kulit tubuh cerah dan halus seperti Nagita Slavina? Yuk, simak
+                            tips eksfoliasi tubuh menggunakan Slavina Body Scrub agar glowing tanpa iritasi!</p>
+                    </div>
+                    <a href="https://fathainspirasi.blogspot.com/2026/06/rahasia-kulit-cerah-instan-tips.html"
+                        target="_blank" class="gh-card-btn">Baca Artikel <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <!-- ARTIKEL 2 -->
+                <div class="gh-card">
+                    <div>
+                        <span class="gh-card-tag tag-bodycare">Body Care</span>
+                        <h2 class="gh-card-title">
+                            <a href="https://fathainspirasi.blogspot.com/2026/06/review-jujur-slavina-body-scrub-lulur.html"
+                                target="_blank">Review Jujur Slavina Body Scrub: Lulur Sultan yang Bikin Kulit Wangi dan
+                                Cerah Seharian</a>
+                        </h2>
+                        <p class="gh-card-desc">Simak review mendalam Slavina Body Scrub by Nagita Slavina. Benarkah
+                            ampuh mencerahkan dan sewangi itu?</p>
+                    </div>
+                    <a href="https://fathainspirasi.blogspot.com/2026/06/review-jujur-slavina-body-scrub-lulur.html"
+                        target="_blank" class="gh-card-btn">Baca Artikel <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <!-- ARTIKEL 3 -->
+                <div class="gh-card">
+                    <div>
+                        <span class="gh-card-tag tag-toner">Toner</span>
+                        <h2 class="gh-card-title">
+                            <a href="https://fathainspirasi.blogspot.com/2026/06/sering-mengalami-breakout-ini-alasan.html"
+                                target="_blank">Sering Mengalami Breakout? Ini Alasan Mengapa Kulit Berjerawat Butuh
+                                Hydrating Toner</a>
+                        </h2>
+                        <p class="gh-card-desc">Banyak yang mengira kulit berjerawat tidak butuh kelembapan. Faktanya,
+                            hydrating toner seperti NPURE Cica Toner adalah kunci utamanya.</p>
+                    </div>
+                    <a href="https://fathainspirasi.blogspot.com/2026/06/sering-mengalami-breakout-ini-alasan.html"
+                        target="_blank" class="gh-card-btn">Baca Artikel <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <!-- ARTIKEL 4 -->
+                <div class="gh-card">
+                    <div>
+                        <span class="gh-card-tag tag-toner">Toner</span>
+                        <h2 class="gh-card-title">
+                            <a href="https://fathainspirasi.blogspot.com/2026/06/review-npure-cica-hydrating-acne-toner.html"
+                                target="_blank">Review NPURE Cica Hydrating Acne Toner: Penyelamat Kulit Kemerahan dan
+                                Sensitif</a>
+                        </h2>
+                        <p class="gh-card-desc">Baca ulasan komprehensif performa NPURE Cica Toner dalam meredakan
+                            jerawat aktif dan menenangkan kemerahan wajah.</p>
+                    </div>
+                    <a href="https://fathainspirasi.blogspot.com/2026/06/review-npure-cica-hydrating-acne-toner.html"
+                        target="_blank" class="gh-card-btn">Baca Artikel <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <!-- ARTIKEL 5 -->
+                <div class="gh-card">
+                    <div>
+                        <span class="gh-card-tag tag-sunscreen">Sunscreen</span>
+                        <h2 class="gh-card-title">
+                            <a href="https://fathainspirasi.blogspot.com/2026/06/jangan-lewatkan-ini-dampak-buruk.html"
+                                target="_blank">Jangan Lewatkan! Ini Dampak Buruk Melewatkan Sunscreen Meski Hanya di
+                                Dalam Rumah</a>
+                        </h2>
+                        <p class="gh-card-desc">Masih malas pakai tabir surya pas WFH? Hati-hati, radiasi sinar UVA
+                            tetap menembus kaca jendela dan merusak kulitmu secara perlahan.</p>
+                    </div>
+                    <a href="https://fathainspirasi.blogspot.com/2026/06/jangan-lewatkan-ini-dampak-buruk.html"
+                        target="_blank" class="gh-card-btn">Baca Artikel <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <!-- ARTIKEL 6 -->
+                <div class="gh-card">
+                    <div>
+                        <span class="gh-card-tag tag-sunscreen">Sunscreen</span>
+                        <h2 class="gh-card-title">
+                            <a href="https://fathainspirasi.blogspot.com/2026/06/review-npure-sunscreen-cica-beat-sun.html"
+                                target="_blank">Review NPURE Sunscreen Cica Beat The Sun Glow: Proteksi Maksimal dengan
+                                Hasil Glowing Alami</a>
+                        </h2>
+                        <p class="gh-card-desc">Cari sunscreen anti komedo tanpa efek white-cast? Simak bedah tuntas
+                            varian terlaris NPURE Sunscreen SPF 50+ PA++++ di sini.</p>
+                    </div>
+                    <a href="https://fathainspirasi.blogspot.com/2026/06/review-npure-sunscreen-cica-beat-sun.html"
+                        target="_blank" class="gh-card-btn">Baca Artikel <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <!-- ARTIKEL 7 -->
+                <div class="gh-card">
+                    <div>
+                        <span class="gh-card-tag tag-lipcare">Lip Care</span>
+                        <h2 class="gh-card-title">
+                            <a href="https://fathainspirasi.blogspot.com/2026/06/cara-mengatasi-bibir-kering-dan-hitam.html"
+                                target="_blank">Cara Mengatasi Bibir Kering dan Hitam Agar Kembali Merona Alami</a>
+                        </h2>
+                        <p class="gh-card-desc">Punya masalah bibir pecah-pecah akibat lipstik matte? Cek tips
+                            mengembalikan kilau sehat dan proteksi bibir dari matahari.</p>
+                    </div>
+                    <a href="https://fathainspirasi.blogspot.com/2026/06/cara-mengatasi-bibir-kering-dan-hitam.html"
+                        target="_blank" class="gh-card-btn">Baca Artikel <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <!-- ARTIKEL 8 -->
+                <div class="gh-card">
+                    <div>
+                        <span class="gh-card-tag tag-lipcare">Lip Care</span>
+                        <h2 class="gh-card-title">
+                            <a href="https://fathainspirasi.blogspot.com/2026/06/review-somethinc-ceraplump-tinted-lip.html"
+                                target="_blank">Review SOMETHINC Ceraplump Tinted Lip Balm: Bibir Plumpy, Lembap,
+                                Berwarna dalam Sekali Oles</a>
+                        </h2>
+                        <p class="gh-card-desc">Review lengkap perpaduan hidrasi ekstrem ceramide dan perlindungan UV
+                            SPF 25 dari Somethinc Tinted Lip Balm.</p>
+                    </div>
+                    <a href="https://fathainspirasi.blogspot.com/2026/06/review-somethinc-ceraplump-tinted-lip.html"
+                        target="_blank" class="gh-card-btn">Baca Artikel <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <!-- ARTIKEL 9 -->
+                <div class="gh-card">
+                    <div>
+                        <span class="gh-card-tag tag-makeup">Makeup</span>
+                        <h2 class="gh-card-title">
+                            <a href="https://fathainspirasi.blogspot.com/2026/06/tips-makeup-cepat-5-menit-untuk-tampil.html"
+                                target="_blank">Tips Makeup Cepat 5 Menit untuk Tampil Segar Alami Setiap Pagi</a>
+                        </h2>
+                        <p class="gh-card-desc">Tutorial dandan anti ribet untuk wanita sibuk agar wajah merona segar
+                            seharian tanpa perlu teknik berlapis-lapis.</p>
+                    </div>
+                    <a href="https://fathainspirasi.blogspot.com/2026/06/tips-makeup-cepat-5-menit-untuk-tampil.html"
+                        target="_blank" class="gh-card-btn">Baca Artikel <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <!-- ARTIKEL 10 -->
+                <div class="gh-card">
+                    <div>
+                        <span class="gh-card-tag tag-makeup">Makeup</span>
+                        <h2 class="gh-card-title">
+                            <a href="https://fathainspirasi.blogspot.com/2026/06/review-hanasui-perfect-cheek-blush-go.html"
+                                target="_blank">Review Hanasui Perfect Cheek Blush & Go Powder: Blush On Praktis dengan
+                                Efek Natural Radiant</a>
+                        </h2>
+                        <p class="gh-card-desc">Bedah kemasan unik dan kelembutan pigmentasi mikro perona pipi andalan
+                            Hanasui yang ramah di kantong.</p>
+                    </div>
+                    <a href="https://fathainspirasi.blogspot.com/2026/06/review-hanasui-perfect-cheek-blush-go.html"
+                        target="_blank" class="gh-card-btn">Baca Artikel <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- FOOTER HAK CIPTA & SOSIAL MEDIA -->
+        <footer class="gh-footer">
+            <div class="gh-footer-sosmed">
+                <!-- Isi tautan tanda '#' di bawah dengan link akun resmi kelompok kalian -->
+                <a class="gh-sosmed-icon" href="#" target="_blank" title="Instagram"><i
+                        class="fa-brands fa-instagram"></i></a>
+                <a class="gh-sosmed-icon" href="#" target="_blank" title="TikTok"><i
+                        class="fa-brands fa-tiktok"></i></a>
+                <a class="gh-sosmed-icon shopee-color" href="#" target="_blank" title="Shopee"><i
+                        class="fa-solid fa-bag-shopping"></i></a>
+            </div>
+            <p>&copy; 2026 Glowry House Hub | Kelompok 4 - Digital Marketing 2</p>
+            <p style="font-size: 0.8rem; margin-top: 5px; opacity: 0.7;">Terverifikasi BPOM &amp; 100% Produk Original
+            </p>
+        </footer>
+
+    </div>
+
+</body>
+
+</html>
